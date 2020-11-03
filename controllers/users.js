@@ -7,11 +7,6 @@ const User = require('../models/User')
 /** signup **/
 
 exports.signup = (req, res, next) => {
-   // Password is not acceptable
-   if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{6,})/.test(req.body.password)) {   // Test password strength
-    return res.status(401).json({ error: 'Le mot de passe doit contenir une lettre majuscule, une minuscule et au moins 1 chiffre (6 caractères min)' });
-  } else {
-    // Password is acceptable, hash it
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
@@ -23,7 +18,6 @@ exports.signup = (req, res, next) => {
           .catch(error => res.status(400).json({ error }));
       })
       .catch(error => res.status(500).json({ error }));
-  }
 };
   
 
