@@ -1,3 +1,4 @@
+require('dotenv').config()// Hide BDD Mongoose
 const express = require('express');
 const helmet = require("helmet");// Secure =>  HTTP headers.
 const rateLimit = require("express-rate-limit");// Limite requests
