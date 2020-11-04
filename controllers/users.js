@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
-const passwordValidator = require('password-validator');
+const passwordValidator = require('password-validator');// Valide password conditions
 
 /**  Utilisateur pour signup/login **/
 
