@@ -1,6 +1,6 @@
 const express = require('express');
-const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");// Secure =>  HTTP headers.
+const rateLimit = require("express-rate-limit");// Limite requests
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path')
