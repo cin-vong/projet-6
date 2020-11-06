@@ -22,26 +22,25 @@ app.use((req, res, next) => {
 
   app.use(bodyParser.json());
   
-  mongoose.connect('mongodb+srv://so-pekocko:NgBL0rDrFf7jE4rO@cluster0.z8zqc.mongodb.net/so-pekocko-sauces?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
+  mongoose.connect('mongodb+srv://so-pekocko:NgBL0rDrFf7jE4rO@cluster0.z8zqc.mongodb.net/so-pekocko-sauces?retryWrites=true&w=majority...',
+  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-  mongoose.set('useCreateIndex', true);
+ // mongoose.set('useCreateIndex', true);
 
 //debug mod of mongoose//
 mongoose.set('debug', true);
 
 
-const limiter = rateLimit({
+/**const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
-});
+});**/
 
   app.use('/images', express.static(path.join(__dirname, 'images')))
 
-  app.use(limiter);
+  //app.use(limiter);
 
   app.use('/api/sauces', saucesRoutes);
   app.use('/api/auth', userRoutes);
