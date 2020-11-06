@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 
   app.use(bodyParser.json());
   
-  mongoose.connect('mongodb+srv://so-pekocko:NgBL0rDrFf7jE4rO@cluster0.z8zqc.mongodb.net/so-pekocko-sauces?retryWrites=true&w=majority...',
+  mongoose.connect('mongodb+srv://so-pekocko:NgBL0rDrFf7jE4rO@cluster0.z8zqc.mongodb.net/so-pekocko-sauces?retryWrites=true&w=majority',
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
