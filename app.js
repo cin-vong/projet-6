@@ -1,7 +1,7 @@
-require('dotenv').config()// Hide BDD Mongoose
+require('dotenv').config()// Cache BDD Mongoose
 const express = require('express');
-const helmet = require("helmet");// Secure =>  HTTP headers.
-const rateLimit = require("express-rate-limit");// Limite requests
+const helmet = require("helmet");// Sécuriser =>  permet de gérer la création des Headers pour utiliser les headers les plus appropriés et les plus sécurité pour l'application.
+const rateLimit = require("express-rate-limit");// Utilisez pour limiter les demandes répétées aux API publiques et / ou aux points de terminaison tels que la réinitialisation du mot de passe
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path')
@@ -12,6 +12,11 @@ const userRoutes = require('./routes/users')
 const app = express();
 
 app.use(helmet());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limite chaque IP à 100 requêtes par fenêtre 
+});
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -31,12 +36,6 @@ app.use((req, res, next) => {
 
 //debug mod of mongoose//
 mongoose.set('debug', true);
-
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-});
 
   app.use('/images', express.static(path.join(__dirname, 'images')))
 

@@ -1,8 +1,8 @@
-const pwdSchema = require('../models/password');
+const pwdSchema = require('../models/Password');
 
 module.exports = (req, res, next)=>{
-    if( req.body.password != pwdSchema){
-        error => res.status(404).json({ error });
+    if( ! pwdSchema.validate(req.body.password)){
+        return res.status(404).json({ error:'Mot de passe invalide !'});
     }else{
         next();
     }
