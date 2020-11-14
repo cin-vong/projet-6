@@ -1,8 +1,10 @@
 require('dotenv').config()// Cache BDD Mongoose
 const express = require('express');
 const helmet = require("helmet");// Sécuriser =>  permet de gérer la création des Headers pour utiliser les headers les plus appropriés et les plus sécurité pour l'application.
-const rateLimit = require("express-rate-limit");// Utilisez pour limiter les demandes répétées aux API publiques et / ou aux points de terminaison tels que la réinitialisation du mot de passe
+const rateLimit = require("express-rate-limit");// Utilisez pour limiter les demandes répétées aux API publiques et / ou aux points de terminaison tels que la réinitialisation du mot de passe (Empeche une entrée de force brute)
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')// Analyser les cookies pour chaque requête effectué
+const postgres = require('pg')// Permet de se défendre contre les attaques d'injections
 const mongoose = require('mongoose');
 const path = require('path')
 
@@ -10,12 +12,13 @@ const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/users')
 
 const app = express();
+app.use(cookieParser())
 
 app.use(helmet());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limite chaque IP à 100 requêtes par fenêtre 
+  max: 20 // limite chaque IP à 100 requêtes par fenêtre 
 });
 
 app.use((req, res, next) => {
