@@ -4,16 +4,16 @@ const helmet = require("helmet");// Sécuriser =>  permet de gérer la création
 const rateLimit = require("express-rate-limit");// Utilisez pour limiter les demandes répétées aux API publiques et / ou aux points de terminaison tels que la réinitialisation du mot de passe (Empeche une entrée de force brute)
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')// Analyser les cookies pour chaque requête effectué
-const postgres = require('pg')// Permet de se défendre contre les attaques d'injections
 const mongoose = require('mongoose');
-const path = require('path')
+const path = require('path');
+const cors = require('cors');// autorise les requêtes
 
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/users')
 
 const app = express();
 app.use(cookieParser())
-
+app.use(cors());
 app.use(helmet());
 
 const limiter = rateLimit({
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     next();
   });
 
-  app.use(bodyParser.json());
+  app.use(bodyParser.json());// Formater le json
   
   mongoose.connect('mongodb+srv://so-pekocko:NgBL0rDrFf7jE4rO@cluster0.z8zqc.mongodb.net/so-pekocko-sauces?retryWrites=true&w=majority',
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })

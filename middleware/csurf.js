@@ -1,5 +1,5 @@
 var cookieParser = require('cookie-parser');
-var csrf = require('csurf');
+var csrf = require('csurf');// atténuer la falsification de requêtes intersites
 var bodyParser = require('body-parser');
 var express = require('express');
  
