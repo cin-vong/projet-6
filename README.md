@@ -1,4 +1,4 @@
-# projet-6
+# Installation de l'app (projet-6)
 
 I.Backend
 
